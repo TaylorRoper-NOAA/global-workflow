@@ -21,6 +21,11 @@ case ${step} in
 
   "anal" | "analcalc" | "analdiag")
     export is_exclusive="True"
+
+    # allocate full number of CPUs per node based on ntasks
+    NNODES=$(( (ntasks + max_tasks_per_node - 1) / max_tasks_per_node ))
+    export ntasks=$(( NNODES * max_tasks_per_node ))
+
     export threads_per_task=1
     export tasks_per_node=${max_tasks_per_node}
     ;;
